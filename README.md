@@ -5,7 +5,7 @@
 **TMSH** is a custom, Unix-like command-line shell written in C from scratch. This project was built to deeply understand how operating systems work under the hood: process management, file descriptors, system calls, and signal handling.
 ## Features
 - **Interactive prompt** with colored output and current directory display.
-- **Built-in commands:** `cd`, `exit`, `help`.
+- **Built-in commands:** `cd`, `exit`.
 - **External command execution** using `fork()` and `execvp()` system calls.
 - **Pipes (`|`):** chaining commands by passing stdout to stdin.
 - **Output redirection (`>`):** saving command output to files.
