@@ -17,9 +17,9 @@
 
 void print_banner(){
     printf(COLOR_GREEN);
-    //printf("HELLO and Welcome to Transformer Magnet Shell. "
-    "If you have `magnet` installed, you can learn more "
-    "by typing `magnet tmsh-info`.\n");
+    //printf("HELLO and Welcome to Transformer Magnet Shell. "  
+    //"If you have `magnet` installed, you can learn more "
+    //"by typing `magnet tmsh-info`.\n");
     printf("This program is licensed under the GNU General Public License v3 (GPLv3).\n");
     printf("See <https://www.gnu.org/licenses/gpl-3.0.html> for details.\n");
     printf(COLOR_RESET);
