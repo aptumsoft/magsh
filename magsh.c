@@ -17,9 +17,6 @@
 
 void print_banner(){
     printf(COLOR_GREEN);
-    //printf("HELLO and Welcome to Magnet Shell. "  
-    //"If you have `magnet` installed, you can learn more "
-    //"by typing `magnet magsh-info`.\n");
     printf("This program is licensed under the GNU General Public License v3 (GPLv3).\n");
     printf("See <https://www.gnu.org/licenses/gpl-3.0.html> for details.\n");
     printf(COLOR_RESET);
@@ -108,7 +105,7 @@ int main() {
         if (pipe_index != -1) {
             int pipefd[2];
             if (pipe(pipefd) == -1) {
-                perror("TMSH: pipe failed");
+                perror("MagSH: pipe failed");
                 continue;
             }
 
@@ -118,6 +115,12 @@ int main() {
             pid_t pid1 = fork();
             if (pid1 == 0) {
                 signal(SIGINT, SIG_DFL);
+                signal(SIGTSTP, SIG_DFL);
+                signal(SIGQUIT, SIG_DFL);
+                #ifdef SIGINFO
+                signal(SIGINFO, SIG_DFL);
+                #endif
+                
                 dup2(pipefd[1], STDOUT_FILENO);
                 close(pipefd[0]);
                 close(pipefd[1]);
@@ -129,6 +132,12 @@ int main() {
             pid_t pid2 = fork();
             if (pid2 == 0) {
                 signal(SIGINT, SIG_DFL);
+                signal(SIGTSTP, SIG_DFL);
+                signal(SIGQUIT, SIG_DFL);
+                #ifdef SIGINFO
+                signal(SIGINFO, SIG_DFL);
+                #endif
+
                 if (redirect_idx != -1 && out_file != NULL && cmd2[0] != NULL) {
                     int fd = open(out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
                     if (fd < 0) {
@@ -160,6 +169,7 @@ int main() {
                 #ifdef SIGINFO
                 signal(SIGINFO, SIG_DFL);
                 #endif
+                
                 if (redirect_idx != -1 && out_file != NULL) {
                     int fd = open(out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
                     if (fd < 0) {
